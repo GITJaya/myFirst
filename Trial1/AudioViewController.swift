@@ -42,6 +42,7 @@ class AudioViewController: UIViewController {
     
     var resultPodCastArray : [PodCast] = []
     
+    var podCastObject =  PodCast()
     var indx : Int = 0
     
     var previewUrl : String = ""
@@ -59,50 +60,27 @@ class AudioViewController: UIViewController {
     
     func presentDetailView(index : Int) {
         
-        let podCastObject = resultPodCastArray[index]
+        podCastObject = resultPodCastArray[index]
         
         artistLabel.text = podCastObject.artistName
         trackLabel.text = podCastObject.trackName
         previewUrl = podCastObject.previewUrl!
         let title = podCastObject.artistName!
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            do{
-                let url = Foundation.URL(string: podCastObject.artworkUrl100!)
-                let testImage =  try Data(contentsOf: url!)
-                self.detailImgView.image = UIImage(data: testImage)
-            }catch  {
-                print(Error.self)
-                
-            }
-        }
+
         let documentDirectoryUrl = Utility.utilityInstance.getUrl()
         let filePath = documentDirectoryUrl.appendingPathComponent("audio"+title)
         
         if FileManager.default.fileExists(atPath: String(describing: filePath)){
             
+             self.triggerAudioPlayer(fileUrl: filePath)
+            
         } else {
         
             self.fetchAudioData(filePath: filePath,title: title,previewUrl : self.previewUrl) { (fileUrl : URL) -> Void in
-                 DispatchQueue.main.async {
-            do {
-               
                 
-                self.audioPlayer = try AVAudioPlayer(contentsOf:fileUrl)
+                 self.triggerAudioPlayer(fileUrl: filePath)
                 
-                self.playOrPause(UIButton())
-                
-                //let totalTime = self.duration(previewUrl : self.previewUrl)
-                let totalTime = self.audioPlayer.duration
-                //self.endTimeLabel.text = totalTime
-                
-                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(AudioViewController.counter), userInfo: nil, repeats: true)
-                }
-             catch {
-                print("Audio Error")
-            }
-                }
-        }
+           }
         }
     }
     
@@ -159,6 +137,34 @@ class AudioViewController: UIViewController {
         
     }
   
+    func triggerAudioPlayer(fileUrl : URL) {
+        
+        DispatchQueue.main.async {
+            
+            do {
+                if self.timer != nil{
+                   self.timer.invalidate()
+                }
+                self.audioPlayer = try AVAudioPlayer(contentsOf:fileUrl)
+                
+                let url = Foundation.URL(string: self.podCastObject.artworkUrl100!)
+                let testImage =  try Data(contentsOf: url!)
+                self.detailImgView.image = UIImage(data: testImage)
+                
+                //let totalTime = self.duration(previewUrl : self.previewUrl)
+                let totalTime = Int(self.audioPlayer.duration)
+                self.endTimeLabel.text = String(totalTime)
+                
+                self.slider.value = Float(0.0)
+                self.slider.maximumValue = Float(self.audioPlayer.duration)
+                self.playOrPause(UIButton())
+                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(AudioViewController.counter), userInfo: nil, repeats: true)
+            }
+            catch {
+                print("Audio Error")
+            }
+        }
+    }
     
     func duration(previewUrl : String) -> String {
         
@@ -167,7 +173,6 @@ class AudioViewController: UIViewController {
         duration = Int(durationFromAsset.toIntMax())
         let durStr = String(duration)
         return durStr
-        print("duration \(duration)")
     }
     
     func playAudio( audioPlayer : AVAudioPlayer) {
@@ -175,42 +180,35 @@ class AudioViewController: UIViewController {
             audioPlayer.prepareToPlay()
             audioPlayer.volume = 5
             audioPlayer.play()
-        
     }
     
     func counter(){
         
-        seconds = seconds + 1
-        
-        startTimeLabel.text = String(seconds)
-        
-        if ( seconds == duration) {
-            timer.invalidate()
-        }
+        let currentTime = Int(audioPlayer.currentTime)
+        let minutes = currentTime/60
+        let seconds = currentTime - minutes * 60
+        startTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+        slider.value = Float(audioPlayer.currentTime)
+    
     }
     
     func fetchAudioData(filePath : URL,title:String, previewUrl : String, completion: @escaping ( _ dataFromFile : URL) -> Void) {
     
-        
+        DispatchQueue.global(qos: .userInitiated).async {
+            
         LoadDataFromURl.instance.getData(urlString: previewUrl){ (data : Data ) -> Void in
             
-            self.fileWrite(fileDestinationUrl : filePath,title: title,data: data){ (dataFromFile: URL) -> Void in
-                completion(dataFromFile)
-            }
-        }
-    }
-
-    func fileWrite(fileDestinationUrl: URL,title:String,data: Data , completion:  @escaping (_ dataFromFile : URL ) -> Void)  {
-        
             do {
-                try data.write(to: fileDestinationUrl, options: .atomic)
-                completion(fileDestinationUrl)
+                try data.write(to: filePath, options: .atomic)
+                completion(filePath)
                 
             } catch let error as NSError {
-                print("error writing to url \(fileDestinationUrl)")
+                print("error writing to url \(filePath)")
                 print(error.localizedDescription)
             }
-        
+           
+        }
+        }
     }
 
 

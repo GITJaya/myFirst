@@ -123,7 +123,7 @@
                                     <constraint firstAttribute="height" constant="30" id="ouK-xC-64n"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="slidingSlider:" destination="o17-zG-lHL" eventType="valueChanged" id="2gf-qr-8Pd"/>
+                                    <action selector="slidingSlider:" destination="o17-zG-lHL" eventType="valueChanged" id="ll0-ha-sjI"/>
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSV-PZ-eC4">
@@ -228,7 +228,7 @@
                         <outlet property="detailImgView" destination="3RW-0d-Hzb" id="r8X-g2-gye"/>
                         <outlet property="endTimeLabel" destination="Wta-vH-mGC" id="DKe-3O-68d"/>
                         <outlet property="playButton" destination="uzD-cz-14C" id="Vur-8y-NAn"/>
-                        <outlet property="slider" destination="q7n-Q9-pBU" id="wcA-LG-ont"/>
+                        <outlet property="slider" destination="q7n-Q9-pBU" id="3De-5d-NA2"/>
                         <outlet property="startTimeLabel" destination="V8W-aM-kKw" id="JyC-EQ-M85"/>
                         <outlet property="trackLabel" destination="2qN-Ii-YBN" id="ry0-ON-6eg"/>
                         <outlet property="view" destination="3RW-0d-Hzb" id="w4P-5i-Mj0"/>
