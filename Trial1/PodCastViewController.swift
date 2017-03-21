@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class PodCastViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -151,7 +151,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let instance = detailStoryBoard.instantiateViewController(withIdentifier: "detailView") as! DetailViewController
+        let instance = detailStoryBoard.instantiateViewController(withIdentifier: "audioView") as! AudioViewController
         instance.indx = indexPath.row
         instance.resultPodCastArray = podCastArray
         self.navigationController?.pushViewController(instance, animated: true)

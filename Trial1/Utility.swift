@@ -9,6 +9,22 @@
 import UIKit
 
 class Utility {
+    
+    static let utilityInstance = Utility()
+    
+    func getUrl()->URL{
+        var documentDirectoryURL : URL? = nil
+    do {
+    
+    // get the documents folder url
+     documentDirectoryURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+       
+      
 
-
+    } catch {
+    
+    }
+         return documentDirectoryURL!
+    }
+    
 }
