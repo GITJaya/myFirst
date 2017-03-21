@@ -10,9 +10,9 @@
 		B637BC821E713348002E8A2A /* PodCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637BC811E713348002E8A2A /* PodCast.swift */; };
 		B637BC841E713599002E8A2A /* Tasks&RoughCode in Resources */ = {isa = PBXBuildFile; fileRef = B637BC831E713599002E8A2A /* Tasks&RoughCode */; };
 		B637BC881E7144A9002E8A2A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637BC871E7144A9002E8A2A /* CustomTableViewCell.swift */; };
-		B637BC8C1E717726002E8A2A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637BC8B1E717726002E8A2A /* DetailViewController.swift */; };
+		B637BC8C1E717726002E8A2A /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637BC8B1E717726002E8A2A /* AudioViewController.swift */; };
 		B680F1201E705BB3000F6616 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B680F11F1E705BB3000F6616 /* AppDelegate.swift */; };
-		B680F1221E705BB3000F6616 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B680F1211E705BB3000F6616 /* ViewController.swift */; };
+		B680F1221E705BB3000F6616 /* PodCastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B680F1211E705BB3000F6616 /* PodCastViewController.swift */; };
 		B680F1251E705BB3000F6616 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B680F1231E705BB3000F6616 /* Main.storyboard */; };
 		B680F1281E705BB3000F6616 /* Trial1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B680F1261E705BB3000F6616 /* Trial1.xcdatamodeld */; };
 		B680F12A1E705BB3000F6616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B680F1291E705BB3000F6616 /* Assets.xcassets */; };
@@ -27,10 +27,10 @@
 		B637BC811E713348002E8A2A /* PodCast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PodCast.swift; sourceTree = "<group>"; };
 		B637BC831E713599002E8A2A /* Tasks&RoughCode */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Tasks&RoughCode"; sourceTree = "<group>"; };
 		B637BC871E7144A9002E8A2A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
-		B637BC8B1E717726002E8A2A /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B637BC8B1E717726002E8A2A /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		B680F11C1E705BB3000F6616 /* Trial1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trial1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B680F11F1E705BB3000F6616 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B680F1211E705BB3000F6616 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B680F1211E705BB3000F6616 /* PodCastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastViewController.swift; sourceTree = "<group>"; };
 		B680F1241E705BB3000F6616 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B680F1271E705BB3000F6616 /* Trial1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Trial1.xcdatamodel; sourceTree = "<group>"; };
 		B680F1291E705BB3000F6616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,14 +77,14 @@
 				B680F1361E705D14000F6616 /* ServerApi */,
 				B680F1351E705D0A000F6616 /* CustomClasses */,
 				B680F11F1E705BB3000F6616 /* AppDelegate.swift */,
-				B680F1211E705BB3000F6616 /* ViewController.swift */,
+				B680F1211E705BB3000F6616 /* PodCastViewController.swift */,
 				B680F1231E705BB3000F6616 /* Main.storyboard */,
 				B680F1291E705BB3000F6616 /* Assets.xcassets */,
 				B680F12B1E705BB3000F6616 /* LaunchScreen.storyboard */,
 				B680F12E1E705BB3000F6616 /* Info.plist */,
 				B680F1261E705BB3000F6616 /* Trial1.xcdatamodeld */,
 				B637BC871E7144A9002E8A2A /* CustomTableViewCell.swift */,
-				B637BC8B1E717726002E8A2A /* DetailViewController.swift */,
+				B637BC8B1E717726002E8A2A /* AudioViewController.swift */,
 			);
 			path = Trial1;
 			sourceTree = "<group>";
@@ -200,8 +200,8 @@
 				B680F1281E705BB3000F6616 /* Trial1.xcdatamodeld in Sources */,
 				B680F1431E7060E1000F6616 /* LoadDataFromURl.swift in Sources */,
 				B680F1411E705F79000F6616 /* ParserHelper.swift in Sources */,
-				B680F1221E705BB3000F6616 /* ViewController.swift in Sources */,
-				B637BC8C1E717726002E8A2A /* DetailViewController.swift in Sources */,
+				B680F1221E705BB3000F6616 /* PodCastViewController.swift in Sources */,
+				B637BC8C1E717726002E8A2A /* AudioViewController.swift in Sources */,
 				B680F1201E705BB3000F6616 /* AppDelegate.swift in Sources */,
 				B637BC821E713348002E8A2A /* PodCast.swift in Sources */,
 			);
