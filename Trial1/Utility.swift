@@ -10,14 +10,13 @@ import UIKit
 
 class Utility {
     
-    static let utilityInstance = Utility()
-    
-    func getUrl()->URL{
+    class func getDocumentDirectoryURL()->URL{
         var documentDirectoryURL : URL? = nil
         do {
             documentDirectoryURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        } catch {
             
+        } catch {
+            print("Unable to fetch documentDirectoryURL")
         }
         return documentDirectoryURL!
     }

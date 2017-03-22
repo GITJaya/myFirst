@@ -10,9 +10,7 @@ import UIKit
 
 class ParserHelper {
     
-    static let instance = ParserHelper()
-    
-    func parsePodCastItems(data : Data, completionHandler:(([PodCast]) -> Void)) {
+    class func parsePodCastItems(data : Data, completionHandler:(([PodCast]) -> Void)) {
         
         var finalArray:[PodCast] = []
         

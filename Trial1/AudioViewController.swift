@@ -22,11 +22,11 @@ class AudioViewController: UIViewController {
     
     @IBOutlet weak var slider: UISlider!
     
+   
     @IBOutlet weak var startTimeLabel: UILabel!
     
+    
     @IBOutlet weak var endTimeLabel: UILabel!
-    
-    
     
     var audioPlayer = AVAudioPlayer()
     
@@ -67,7 +67,8 @@ class AudioViewController: UIViewController {
         previewUrl = podCastObject.previewUrl!
         let title = podCastObject.artistName!
 
-        let documentDirectoryUrl = Utility.utilityInstance.getUrl()
+        let documentDirectoryUrl = Utility.getDocumentDirectoryURL()
+        
         let filePath = documentDirectoryUrl.appendingPathComponent("audio"+title)
         
         if FileManager.default.fileExists(atPath: String(describing: filePath)){
@@ -100,6 +101,7 @@ class AudioViewController: UIViewController {
         } else {
             self.playButton.setImage(UIImage(named : "pause"), for: UIControlState.normal)
             seconds = 0
+            self.initialiseSlider()
             self.playAudio(audioPlayer: self.audioPlayer)
             
         }
@@ -130,11 +132,11 @@ class AudioViewController: UIViewController {
     }
     
     
-    @IBAction func slidingSlider(_ sender: UISlider) {
+    
+    @IBAction func isSliderValueChanged(_ sender: Any) {
         
-        slider.value = Float(audioPlayer.currentTime)
-        slider.maximumValue = Float(audioPlayer.duration)
-        
+        audioPlayer.currentTime = TimeInterval(slider.value)
+        self.counter()
     }
   
     func triggerAudioPlayer(fileUrl : URL) {
@@ -151,14 +153,8 @@ class AudioViewController: UIViewController {
                 let testImage =  try Data(contentsOf: url!)
                 self.detailImgView.image = UIImage(data: testImage)
                 
-                //let totalTime = self.duration(previewUrl : self.previewUrl)
-                let totalTime = Int(self.audioPlayer.duration)
-                self.endTimeLabel.text = String(totalTime)
-                
-                self.slider.value = Float(0.0)
-                self.slider.maximumValue = Float(self.audioPlayer.duration)
                 self.playOrPause(UIButton())
-                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(AudioViewController.counter), userInfo: nil, repeats: true)
+                
             }
             catch {
                 print("Audio Error")
@@ -180,6 +176,19 @@ class AudioViewController: UIViewController {
             audioPlayer.prepareToPlay()
             audioPlayer.volume = 5
             audioPlayer.play()
+    }
+    
+    func initialiseSlider() {
+        
+        let totalTime = Int(self.audioPlayer.duration)
+        let minutes = totalTime/60
+        let seconds = totalTime - minutes * 60
+        self.endTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+        
+        self.slider.value = Float(self.audioPlayer.currentTime)
+        self.slider.maximumValue = Float(self.audioPlayer.duration)
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(AudioViewController.counter), userInfo: nil, repeats: true)
     }
     
     func counter(){

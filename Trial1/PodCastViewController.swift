@@ -10,21 +10,16 @@ import UIKit
 
 class PodCastViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    
     @IBOutlet weak var tableView: UITableView!
-    
     let activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
-
     var podCastArray : [PodCast] = []
     var cacheCell : [Bool] = []
-    
     var index = 0
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         createActivityIndicator(appendItems: "LinkinPark")
         loadUrl(appendItems: "LinkinPark")
         createSearchBar()
@@ -48,14 +43,10 @@ class PodCastViewController: UIViewController, UITableViewDataSource, UITableVie
         let baseUrlStringWithSearchText = baseUrlString + appendItems
         //Activity indicator start
         LoadDataFromURl.instance.getData(urlString: baseUrlStringWithSearchText) { (data : Data) -> Void  in
-            
-            ParserHelper.instance.parsePodCastItems(data: data) { (json : [PodCast]) -> Void in
-                
+            ParserHelper.parsePodCastItems(data: data) { (json : [PodCast]) -> Void in
                 DispatchQueue.main.async {
                     // accessing UIElements in main thread
-                    
                     self.activityIndicator.stopAnimating()
-                    
                     self.podCastArray = json
                     self.tableView.reloadData()
                     self.cacheCell = [Bool](repeating : false, count : self.podCastArray.count)
@@ -84,7 +75,6 @@ class PodCastViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if searchText.isEmpty {
             createActivityIndicator(appendItems: "Hello")
-            
         } else {
             createActivityIndicator(appendItems: searchText)
             print("searchText \(searchText)")
@@ -103,8 +93,6 @@ class PodCastViewController: UIViewController, UITableViewDataSource, UITableVie
         
         activityIndicator.startAnimating()
         loadUrl(appendItems: appendItems)
-    
-        
     }
 
     // MARK: Table View Rows
@@ -113,8 +101,6 @@ class PodCastViewController: UIViewController, UITableViewDataSource, UITableVie
         
         return podCastArray.count
     }
-    
-    
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
